@@ -1,0 +1,45 @@
+MAIL=/usr/mail/${LOGNAME:?}
+
+# Settings applicable to bash (and probably ksh) -*- mode:shell-script -*-
+
+#* .bash_profile
+################
+
+#** source .bashrc
+
+[ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
+
+#** Shell options
+
+if [ -n "$BASH_VERSION" ]; then # it is bash
+    shopt -s histappend
+    shopt -s histverify
+
+    # shopt -s autocd
+    shopt -s cdspell
+    # shopt -s dirspell
+    # shopt -q progcomp
+fi
+
+#** Env variables
+PATH=/usr/lib64/qt-3.3/bin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin
+PATH=/usr/atria/bin:$PATH
+PATH=/home/ascm/bin:$PATH
+PATH=$HOME/.local/bin:$PATH
+export PATH
+
+MANPATH=$MANPATH:$HOME/.local/share/man
+export MANPATH
+
+EDITOR=vi
+export EDITOR
+
+#export HISTCONTROL="ignoredups"
+#export HISTFILESIZE=1000
+#export HISTSIZE=500
+
+#export LC_CTYPE=zh_CN.utf8
+export LC_ALL=en_US.utf8
+umask 002
+
+# [ -n "$TMUX" ] || tg
