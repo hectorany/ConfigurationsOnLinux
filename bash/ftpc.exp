@@ -1,0 +1,11 @@
+#!/usr/bin/expect
+
+
+spawn ftp cv0035619n1.cn.alcatel-lucent.com
+
+expect "\[Nn]ame"
+send "hectorz\r"
+
+expect "\[Pp]assword"
+
+interact
