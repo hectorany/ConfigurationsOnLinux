@@ -1,0 +1,22 @@
+#!/bin/bash
+set +x
+
+TOP=../
+INPUTFILE="inputFileList"
+TEMPFILE="tmp.$$"
+
+cvs diff -un $TOP > $TEMPFILE
+
+grep "TelicaRoot/components" $TEMPFILE | sed -e "s#^.*TelicaRoot/components/##g" -e "s/,v$//g" > $INPUTFILE
+
+FILELIST=`cat $INPUTFILE`
+
+for file in $FILELIST
+do
+        cvs st ${TOP}$file |grep "Locally Modified" 1>/dev/null
+        if [ $? -eq 0 ]
+        then
+                cvs diff -u20 ${TOP}$file > output/`basename $file`.df
+        fi
+done
+rm -rf $TEMPFILE
