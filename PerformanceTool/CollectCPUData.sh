@@ -76,7 +76,7 @@ function dataSpace()
 	do
 		let i++
 		sleep $TIMESLOT
-		du -l --max-depth=0 /opt/PlexDC/$INSTANCE/data/* |awk 'BEGIN{sum = 0;}{sum += $1} END{print sum}' >> $DATASPACEFILE
+		du -l --max-depth=0 /opt/PlexDC/$INSTANCE/data/* |awk 'BEGIN{sum = 0;}{sum += $1} END{printf "%.4f",sum/1024}' >> $DATASPACEFILE
 	done
 }
 
