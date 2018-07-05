@@ -72,6 +72,7 @@ function dataSpace()
 	if [ x$INSTANCE == 'x' ]
 	then
 		echo "No Instance name given, will not get cache space."
+		echo "" > $DATASPACEFILE
 		return 0
 	fi
 	let count=$TIMELONG
