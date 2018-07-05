@@ -69,7 +69,12 @@ function topB()
 
 function dataSpace()
 {
-	let count=$TIMELONG/$TIMESLOT
+	if [ x$INSTANCE == 'x' ]
+	then
+		echo "No Instance name given, will not get cache space."
+		return 0
+	fi
+	let count=$TIMELONG
 	let i=0
 	echo "CacheSpace" > $DATASPACEFILE
 	while (( $i<$count ))
