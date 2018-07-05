@@ -82,7 +82,7 @@ function dataSpace()
 	do
 		let i++
 		sleep $TIMESLOT
-		du -l --max-depth=0 /opt/PlexDC/$INSTANCE/data/* |awk 'BEGIN{sum = 0;}{sum += $1} END{printf "%.4f",sum/1024}' >> $DATASPACEFILE
+		du -l --max-depth=0 /opt/PlexDC/$INSTANCE/data/* |awk 'BEGIN{sum = 0;}{sum += $1} END{printf "%.4f\n",sum/1024}' >> $DATASPACEFILE
 	done
 }
 
@@ -108,13 +108,14 @@ grep StatsDB $HTOPORIGFILE|grep -v BGPersi |awk '{print $9}' >> $STATSFILE &
 grep receiverHandler $HTOPORIGFILE |awk '{print $9}' >> $RECEIVERFILE &
 grep Telica $TOPORIGFILE |awk '{print $9}' >> $MAINFILE &
 
-if [ $DIAMETER='TRUE' ]
+if [ $DIAMETER == 'TRUE' ]
 then 
 	echo 'sendACRHndl' > $SENDACRFILE
 	grep sendACRHndl $HTOPORIGFILE |awk '{print $9}' >> $SENDACRFILE &
 	wait
 	paste $MAINFILE $STATSFILE $BILLFILE $RECEIVERFILE $SENDACRFILE $DATASPACEFILE > $OUTPUT
 else
+	wait
 	paste $MAINFILE $STATSFILE $BILLFILE $RECEIVERFILE $DATASPACEFILE > $OUTPUT
 fi
 
